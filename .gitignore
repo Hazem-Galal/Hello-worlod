@@ -1,0 +1,4 @@
+# Environment variables - never commit API keys or secrets
+.env
+.env.local
+.env.*.local
