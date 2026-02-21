@@ -32,7 +32,7 @@ load_dotenv()
 # Configuration
 INDEX_NAME = "langchain-docs"
 NAMESPACE = "langchain_documentation"
-DOCS_URL = "https://python.langchain.com"
+DOCS_URL = "https://docs.langchain.com/"
 BATCH_SIZE = 96
 CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 200
@@ -67,6 +67,17 @@ def crawl_docs() -> List[Document]:
     result = tavily_crawl.invoke({
         "url": DOCS_URL,
         "instructions": "Extract all documentation pages, tutorials, and API references. Include code examples and explanatory text.",
+        "limit": 150,           # Total links to process (default 50). Increase for more pages.
+        "max_depth": 5,         # Link levels from root (1–5). 5 = deepest.
+        "max_breadth": 50,      # Links to follow per page (default 20, max 500).
+        "search_depth": "advanced",
+        "search_type": "site",
+        "search_query": "LangChain documentation",
+        "search_filters": {
+            "language": "en",
+            "country": "us",
+            "category": "documentation",
+        },
     })
 
     results = result.get("results", [])
@@ -84,6 +95,8 @@ def crawl_docs() -> List[Document]:
             )
 
     log_success("Crawled %d pages", len(documents))
+    for i, doc in enumerate(documents, 1):
+        log_info("  %d. %s", i, doc.metadata.get("source", "unknown"))
     return documents
 
 
@@ -144,6 +157,8 @@ def main() -> None:
     ensure_index_exists(pc)
 
     documents = crawl_docs()
+    pages_crawled = len(documents)
+    log_info("Total pages crawled: %d", pages_crawled)
     if not documents:
         log_error("No documents to process. Exiting.")
         return

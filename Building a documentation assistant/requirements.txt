@@ -1,6 +1,7 @@
 langchain
 langchain-openai
 langchain-community
+langchain-aws
 langchain-text-splitters
 langgraph
 openai
@@ -19,3 +20,6 @@ pandas
 tqdm
 tavily-python
 langchain-tavily
+boto3
+opensearch-py
+requests-aws4auth

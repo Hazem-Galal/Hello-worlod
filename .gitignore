@@ -1,4 +1,10 @@
 # Environment files - NEVER commit API keys or secrets
 .env
+.env.local
+.env.*.local
 .env.*
+# Template file only - use placeholder values, never real secrets
 !.env.example
+
+# Python
+__pycache__/

@@ -34,3 +34,30 @@ streamlit run app.py
 ```
 
 Ask questions about LangChain; answers are retrieved from the indexed documentation.
+
+---
+
+## AWS Alternative
+
+An AWS-native version uses Amazon Bedrock (embeddings + LLM), Amazon OpenSearch (vector store), and a simple requests+BeautifulSoup crawler (no Tavily).
+
+### AWS Setup
+
+1. **Environment** – add to `.env`:
+   - `OPENSEARCH_HOST` – OpenSearch domain host (e.g. `search-mydomain.us-east-1.es.amazonaws.com`)
+   - `AWS_REGION` – e.g. `us-east-1`
+   - AWS credentials (via `~/.aws/credentials` or env vars)
+
+2. **OpenSearch** – Create an OpenSearch domain with k-NN enabled (or use OpenSearch Serverless with `OPENSEARCH_SERVERLESS=true`).
+
+3. **Bedrock** – Enable access to Titan Embed and Claude in the Bedrock console.
+
+### AWS Usage
+
+```bash
+# Ingest (crawls, embeds with Bedrock, upserts to OpenSearch)
+python ingestion_aws.py
+
+# Start chatbot (Bedrock + OpenSearch)
+streamlit run app_aws.py
+```
