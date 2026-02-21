@@ -1,0 +1,4 @@
+# Environment files - NEVER commit API keys or secrets
+.env
+.env.*
+!.env.example
