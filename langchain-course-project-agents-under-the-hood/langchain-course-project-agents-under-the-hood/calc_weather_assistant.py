@@ -18,7 +18,7 @@ load_dotenv()
 
 # --- Constants ---
 
-MODEL = os.getenv("CALC_WEATHER_MODEL", "ollama:gemma3:270m")
+MODEL = os.getenv("CALC_WEATHER_MODEL", "openai:gpt-4o-mini")
 MAX_ITERATIONS = 10
 
 SYSTEM_PROMPT = """You are "CalcWeather Assistant", an accurate, tool-using chatbot inside a Streamlit app.

@@ -65,6 +65,40 @@ This course takes you through building 7 real-world AI agent projects, from simp
 
 ### ⚙️ Setup Instructions 
 
+#### Quick Start: Run `main.py` (Summary Chain)
+
+The `main.py` script demonstrates a simple LangChain chain that summarizes biographical information using either a local Ollama model or OpenAI.
+
+**1. Install dependencies**
+   ```bash
+   pip install langchain langchain-openai langchain-ollama python-dotenv ollama
+   ```
+
+**2. Configure environment** (create `.env` in the project root)
+   ```
+   OPENAI_API_KEY=your-openai-key          # Required for OpenAI
+   LANGSMITH_TRACING=false                 # Set to true for LangSmith traces
+   LANGCHAIN_TRACING_V2=false
+   ```
+
+**3. Choose your LLM**
+
+   - **Ollama (local, free):** Install [Ollama](https://ollama.com), then pull a model:
+     ```bash
+     ollama pull gemma3:270m    # ~291MB, works on 8GB RAM
+     ollama pull gpt-oss:latest # ~13GB, needs 16GB+ RAM
+     ```
+     Edit `main.py` and use `ChatOllama(model="gemma3:270m")`.
+
+   - **OpenAI:** Set `OPENAI_API_KEY` in `.env` and use `ChatOpenAI(model="gpt-4o-mini")` in `main.py`.
+
+**4. Run**
+   ```bash
+   python main.py
+   ```
+
+---
+
 1. **Clone the repository**
    ```bash
    git clone https://github.com/emarco177/langchain-course
@@ -148,4 +182,3 @@ If you find this project helpful, please consider:
 **Built with ❤️ by Eden Marco**
 
 </div>
-

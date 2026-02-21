@@ -1,3 +1,4 @@
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -17,7 +18,7 @@ def get_product_price(product: str) -> float:
     """Look up the price of a product in the catalog."""
     print(f"    >> Executing get_product_price(product='{product}')")
     prices = {"laptop": 1299.99, "headphones": 149.95, "keyboard": 89.50}
-    return prices.get(product, 0)
+    return float(prices.get(product, 0.0))
 
 
 @traceable(run_type="tool")
@@ -151,6 +152,9 @@ def run_agent(question: str):
         # Difference 6: Attribute access (.function.name) instead of dict access (.get("name"))
         tool_name = tool_call.function.name
         tool_args = tool_call.function.arguments
+        # Ollama may return arguments as JSON string in some server versions
+        if isinstance(tool_args, str):
+            tool_args = json.loads(tool_args) if tool_args else {}
 
         print(f"  [Tool Selected] {tool_name} with args: {tool_args}")
 
@@ -168,6 +172,7 @@ def run_agent(question: str):
         messages.append(
             {
                 "role": "tool",
+                "tool_name": tool_name,
                 "content": str(observation),
             }
         )
