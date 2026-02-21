@@ -1,0 +1,63 @@
+You are a senior Python engineer specializing in LangChain + LangGraph.
+
+Task:
+Generate a complete, runnable Python script that implements an agent loop using LangGraph (StateGraph) and LangChain tool-calling.
+
+Requirements:
+1) Environment
+- Use python-dotenv and call load_dotenv() at startup.
+- Use an Ollama chat model via LangChain init_chat_model, with model name "qwen3:1.7b" and temperature=0.
+- Use LangSmith tracing with @traceable on the main run function (but the code must still run even if LangSmith env vars are not set).
+
+2) Tools
+Create two tools using @tool:
+- get_product_price(product: str) -> float
+  - Use an in-memory catalog dict: {"laptop": 1299.99, "headphones": 149.95, "keyboard": 89.50}
+  - Return 0.0 if not found
+  - Print a debug line when executed
+- apply_discount(price: float, discount_tier: str) -> float
+  - Discount tiers dict: {"bronze": 5, "silver": 12, "gold": 23}
+  - Apply percentage and round to 2 decimals
+  - Print a debug line when executed
+
+3) System rules (must be enforced by prompt)
+In the SystemMessage, include strict rules:
+- Never guess a product price; always call get_product_price first
+- Only call apply_discount after receiving a price from get_product_price
+- Never compute discounts manually; always call apply_discount
+- If discount tier is missing, ask the user which tier to use
+
+4) Graph design (LangGraph)
+Implement a LangGraph StateGraph with state containing:
+- messages: list[BaseMessage]
+
+Nodes:
+- "agent": calls the LLM with tools bound and appends the AI message
+- "tools": executes ONLY the FIRST tool call from the last AI message, then appends a ToolMessage with the tool result
+
+Edges:
+- Entry point: "agent"
+- Conditional routing from "agent":
+  - if last AI message has tool_calls -> go to "tools"
+  - else -> END
+- Always edge from "tools" back to "agent" to create the loop
+
+Loop control:
+- Use app.invoke(..., config={"recursion_limit": N}) where N is derived from MAX_ITERATIONS, to prevent infinite loops.
+- Define MAX_ITERATIONS = 10.
+
+5) Output expectations
+- The script must be runnable as-is.
+- Include a main guard:
+  if __name__ == "__main__":
+      run the agent on:
+      "What is the price of a laptop after applying a gold discount?"
+  and print the final answer.
+
+6) Code quality
+- Use clear function names, type hints, and comments.
+- Do not include placeholders like “TODO”.
+- Do not use pseudo-code. Provide real imports and real code.
+
+Return:
+Only return the Python code inside a single fenced code block. No extra explanations.
