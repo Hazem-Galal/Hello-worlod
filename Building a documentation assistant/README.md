@@ -35,6 +35,15 @@ streamlit run app.py
 
 Ask questions about LangChain; answers are retrieved from the indexed documentation.
 
+### Optional: LLM thinking and absorption
+
+- **Context absorption**: Each response shows an expandable "📥 Context absorbed" section with the retrieved documents used to answer.
+- **Reasoning/thinking**: To show the model's reasoning (o1, o3, o4-mini), set in `.env`:
+  ```
+  REASONING_MODEL=o4-mini
+  ```
+  This uses OpenAI's Responses API and displays thinking steps before the answer.
+
 ---
 
 ## AWS Alternative
