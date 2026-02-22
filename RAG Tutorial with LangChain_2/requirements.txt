@@ -1,0 +1,10 @@
+black
+isort
+langchain
+langchain-classic
+langchain-community
+langchain-openai
+langchain-pinecone
+langchainhub
+python-dotenv
+langchain-text-splitters
