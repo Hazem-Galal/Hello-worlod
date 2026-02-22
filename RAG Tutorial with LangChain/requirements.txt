@@ -1,0 +1,9 @@
+black
+isort
+langchain
+langchain-classic
+langchain-community
+langchain-openai
+langchain-pinecon
+langchainhub
+python-dotenv
