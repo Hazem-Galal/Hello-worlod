@@ -9,5 +9,10 @@
 # Python
 __pycache__/
 
+# Node / Next.js
+node_modules/
+.next/
+out/
+
 # Chat history (user-specific, optional to persist)
 .chat_history.json
