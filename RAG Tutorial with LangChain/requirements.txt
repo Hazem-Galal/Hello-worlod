@@ -4,6 +4,6 @@ langchain
 langchain-classic
 langchain-community
 langchain-openai
-langchain-pinecon
+langchain-pinecone
 langchainhub
 python-dotenv
