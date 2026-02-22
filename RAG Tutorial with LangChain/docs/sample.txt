@@ -1,0 +1,2 @@
+This is a sample document for the RAG tutorial.
+Add more .txt files to the docs folder to index them.
