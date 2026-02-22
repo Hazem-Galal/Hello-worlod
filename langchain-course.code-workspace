@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "name": "RAG Tutorial with LangChain",
+      "path": "RAG Tutorial with LangChain"
+    },
+    {
+      "name": "CopilotKit Agent-Native App",
+      "path": "CopilotKit Agent-Native App"
+    }
+  ],
+  "settings": {}
+}

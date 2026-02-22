@@ -1,0 +1,23 @@
+[project]
+name = "ingestion-backend"
+version = "0.1.0"
+description = "CopilotKit backend for RAG document ingestion"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "copilotkit==0.1.74",
+    "fastapi",
+    "uvicorn",
+    "python-dotenv",
+    "langchain-openai",
+    "langchain-community",
+    "langchain-text-splitters",
+    "langchain-pinecone",
+    "langchain-core",
+    "langgraph>=0.5.3",
+    "pinecone",
+]
+
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
